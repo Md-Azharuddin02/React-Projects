@@ -1,11 +1,8 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { AccordionContext } from "./store/SelectContext";
 
 function Header() {
-    const [multiple, setMultiple] = useState(false)
-    const handleOnClick=()=>{
-        multiple ===false? setMultiple(true) : setMultiple(false)
-    }
-    console.log(multiple)
+   const {handleOnClick}= useContext(AccordionContext)
   return (
     <>
       <div className="w-full flex flex-row justify-between px-8 items-center my-8">
