@@ -1,22 +1,44 @@
 import { createContext, useState } from "react";
 
+export const AccordionContext = createContext({
+  handleOnClick: () => {},
+  handleCurrentItem: () => {},
+});
 
-export const AccordionContext = createContext();
+export const AccordionContextProvider = ({ children }) => {
+  const [status, setStatus] = useState("Single");
+  const [currentId, setCurrentId] = useState(null);
+  const [itemArray, setItem] = useState([]);
 
+  const handleOnClick = () => {
+    status === "Single" ? setStatus("Multiple") : setStatus("Single");
+  };
 
-export const AccordionContextProvider=({children})=>{
-    const [multiple, setMultiple] = useState(false)
-    const handleOnClick=()=>{
-        multiple ===false? setMultiple(true) : setMultiple(false)
-    }
-    console.log(multiple)
-    return(
-        <AccordionContext.Provider
-        value={{
-            handleOnClick,
-        }}
-        >
-        {children}
-        </AccordionContext.Provider>
-    )
-}
+  const handleCurrentItem = (id) => {
+    setCurrentId(id);
+  };
+
+  const handleMultipleSelection = (id) => {
+      let copyItem = [...itemArray];
+      const isInclude = copyItem.indexOf(id);
+      if (isInclude === -1) copyItem.push(id);
+      else copyItem.splice(isInclude, 1);
+      setItem(copyItem);
+  };
+  console.log(itemArray)
+
+  return (
+    <AccordionContext.Provider
+      value={{
+        handleOnClick,
+        handleCurrentItem,
+        currentId,
+        handleMultipleSelection,
+        status,
+        itemArray,
+      }}
+    >
+      {children}
+    </AccordionContext.Provider>
+  );
+};

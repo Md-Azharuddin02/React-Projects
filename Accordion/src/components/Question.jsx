@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
+import { AccordionContext } from "./store/SelectContext";
 
-function Question({ item,HandleAnswerVisibility }) {
+function Question({ item }) {
 
+  const {handleCurrentItem, status, handleMultipleSelection }= useContext(AccordionContext)
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center my-4 bg-slate-500 py-4 ">
@@ -11,7 +13,8 @@ function Question({ item,HandleAnswerVisibility }) {
           <p className="">{item.question}</p>
         </div>
         <div className="w-10">
-          <IoMdAddCircle className="text-3xl text-white cursor-pointer" onClick={()=>HandleAnswerVisibility(item.id)} />
+          <IoMdAddCircle className="text-3xl text-white cursor-pointer" onClick={
+           ()=>  status === 'Multiple' ? handleMultipleSelection(item.id) : handleCurrentItem(item.id)} />
         </div>
       </div>
     </>
