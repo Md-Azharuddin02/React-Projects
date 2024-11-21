@@ -1,12 +1,12 @@
 
 import './App.css'
-import Rating from './components/Rating'
+import UsingFetch from './components/UsingFetch'
 
 function App() {
 
   return (
-   <>
-   <Rating stars={5} />
+    <>
+     <UsingFetch/>
     </>
   )
 }
